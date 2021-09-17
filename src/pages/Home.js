@@ -4,9 +4,11 @@ import {
     Text, 
     StyleSheet, 
     TextInput, 
-    Platform,
-    TouchableOpacity
+    Platform, 
 } from 'react-native'
+
+import {Button} from '../components/Button';
+import { SkillCard } from '../components/SkillCard';
 
 export function Home(){
     const [newSkill, setNewskill] = useState('');
@@ -25,19 +27,12 @@ export function Home(){
             placeholder="New Skill" 
             onChangeText={setNewskill}
         /> 
-        <TouchableOpacity 
-            activeOpacity={0.8}
-            style={styles.button}
-            onPress={handleAddNewSkill}>
-            <Text style={styles.buttonText}>Adicionar Skill</Text>
-        </TouchableOpacity>
+     <Button onPress={handleAddNewSkill}/> 
 
         <Text style={[styles.title, {marginTop: 50, marginBottom: 20}]}>My Skill</Text> 
  
        {mySkill.map( skill => (
-            <TouchableOpacity key={skill} activeOpacity={0.8} style={styles.buttonSkill}>
-                <Text style={styles.textSkill}>{skill}</Text> 
-            </TouchableOpacity>
+          <SkillCard  skill={skill}/> 
        ))
        }
     </View>
@@ -48,8 +43,7 @@ const styles = StyleSheet.create({
         flex: 1, 
         backgroundColor: '#121015',
         paddingHorizontal: 30,
-        paddingVertical: 70,
-
+        paddingVertical: 70, 
     },
     title: {
         color: '#fff',
@@ -63,29 +57,5 @@ const styles = StyleSheet.create({
         padding: Platform.OS === 'ios' ? 15 : 10,
         marginTop: 30,
         borderRadius: 7
-    },
-    button: {
-        backgroundColor: '#a370f7',
-        padding: 15,
-        borderRadius: 7,
-        alignItems: 'center',
-        marginTop: 20,
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 17,
-        fontWeight: 'bold', 
-    },
-    buttonSkill:{
-        backgroundColor: '#1f1e25',
-        padding: 15,
-        borderRadius: 50,
-        marginVertical:10
-    },
-    textSkill: {
-        color: '#fff',
-        fontSize: 22,
-        fontWeight: 'bold',
-        alignSelf: 'center'
-    }
+    },  
 })
