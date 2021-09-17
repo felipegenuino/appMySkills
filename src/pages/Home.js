@@ -32,7 +32,7 @@ export function Home(){
         <Text style={[styles.title, {marginTop: 50, marginBottom: 20}]}>My Skill</Text> 
  
        {mySkill.map( skill => (
-          <SkillCard  skill={skill}/> 
+          <SkillCard key={skill} skill={skill}/> 
        ))
        }
     </View>
