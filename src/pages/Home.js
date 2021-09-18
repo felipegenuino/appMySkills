@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {
     View, 
     Text, 
     StyleSheet, 
     TextInput, 
-    Platform, 
+    Platform,  
+    FlatList
 } from 'react-native'
 
 import {Button} from '../components/Button';
@@ -12,15 +13,35 @@ import { SkillCard } from '../components/SkillCard';
 
 export function Home(){
     const [newSkill, setNewskill] = useState('');
-    const [mySkill, setMySkill] = useState([]);
+    const [mySkills, setMySkills] = useState([]);
+    const [gretting, setGretting] = useState('');
 
+  
     function handleAddNewSkill(){
-        setMySkill(oldState => [...oldState, newSkill]) 
+        setMySkills(oldState => [...oldState, newSkill]) 
     }
+
+
+    useEffect(()=>{
+        console.log('useEffect Executado')
+    }, [mySkills])
+
+    useEffect(()=>{
+        const currentHour = new Date().getHours();
+        if( currentHour < 12){
+                setGretting('Good morning')
+        }else if (currentHour >= 12 && currentHour < 18) {
+              setGretting('Good afternoon')
+        }else {
+                setGretting('Good night')
+        }
+    }, [mySkills])
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Wellcome, Felipe</Text> 
+      <Text style={styles.gretting}>{gretting}</Text> 
+
         <TextInput 
             style={styles.input} 
             placeholderTextColor="#555" 
@@ -30,11 +51,14 @@ export function Home(){
      <Button onPress={handleAddNewSkill}/> 
 
         <Text style={[styles.title, {marginTop: 50, marginBottom: 20}]}>My Skill</Text> 
- 
-       {mySkill.map( skill => (
-          <SkillCard key={skill} skill={skill}/> 
-       ))
-       }
+ <FlatList 
+    data={mySkills} 
+    keyExtractor={item=> item}
+    renderItem={({item})=>(
+        <SkillCard skill={item} />
+    )}
+ />
+      
     </View>
   )
 }
@@ -58,4 +82,8 @@ const styles = StyleSheet.create({
         marginTop: 30,
         borderRadius: 7
     },  
+    gretting: {
+        fontSize: 14,
+        color: '#fff'
+    }
 })
