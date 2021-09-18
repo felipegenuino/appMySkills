@@ -5,7 +5,7 @@ import {
     StyleSheet, 
     TextInput, 
     Platform,  
-    FlatList
+    FlatList, 
 } from 'react-native'
 
 import {Button} from '../components/Button';
@@ -35,10 +35,11 @@ export function Home(){
         }else {
                 setGretting('Good night')
         }
-    }, [mySkills])
+    }, [])
 
   return (
     <View style={styles.container}>
+       
       <Text style={styles.title}>Wellcome, Felipe</Text> 
       <Text style={styles.gretting}>{gretting}</Text> 
 
