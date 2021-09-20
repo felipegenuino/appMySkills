@@ -60,8 +60,8 @@ export function Home(){
             placeholder="New Skill" 
             onChangeText={setNewskill}
         /> 
-     <Button onPress={handleAddNewSkill}/> 
-
+     <Button onPress={handleAddNewSkill} title="Adicionar Skill" /> 
+ 
         <Text style={[styles.title, {marginTop: 50, marginBottom: 20}]}>My Skill</Text> 
  <FlatList 
     data={mySkills} 
